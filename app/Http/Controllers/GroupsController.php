@@ -22,7 +22,10 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        return view('groups/create');
+        $groups['mode']      = 'create';
+        $groups['headline']  = 'Group';
+
+        return view('groups/form', $groups);
     }
 
     /**
@@ -48,17 +51,28 @@ class GroupsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Groups $groups)
+    public function edit($id)
     {
-        //
+        $groups['groups'] = Groups::findOrFail($id);
+        $groups['mode']      = 'edit';
+        $groups['headline']  = 'Update';
+        return view('groups/form', $groups);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGroupsRequest $request, Groups $groups)
+    public function update(UpdateGroupsRequest $request, $id)
     {
-        //
+        $formData = $request->all();
+
+        $groups          = Groups::find($id);
+        $groups->title   = $formData['title'];
+
+        if($groups->save()){
+            return redirect('/groups')->with('message', 'Groups Update Success');
+        }
+        return redirect('/groups');
     }
 
     /**

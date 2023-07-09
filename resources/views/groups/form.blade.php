@@ -20,19 +20,30 @@
               <div class="card-body p-md-5">
                 <div class="row justify-content-center">
                   <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Group Name</p>
-                    <form class="mx-1 mx-md-4" method="POST" action=" {{ url('groups') }}">
-                        @csrf
-                        <div class="d-flex flex-row align-items-center mb-3">
-                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                                <input type="title" name="title" class="form-control" id="title" placeholder="Group">
-                            </div>
+
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">{{ $headline }}</p>
+                    @if ($mode == 'edit')
+                      {!! Form::model($groups, ['route' => ['groups.update', $groups->id],  'method' => 'put']) !!}
+                    @else
+                      {!! Form::open(['route' => 'groups.store',  'method' => 'post']) !!}
+                    @endif
+                      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <span class="text-danger">*</span>
+                          <div class="form-outline flex-fill mb-0">
+                            {{ Form::text('title', NULL, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Title']); }}
+                          </div>
+                          
                         </div>
+      
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                          <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                         </div>
-                    </form>
+  
+                      {!! Form::close() !!}
+
+
                   </div>
                 </div>
               </div>
