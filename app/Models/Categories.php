@@ -13,14 +13,14 @@ class Categories extends Model
 
     public function products()
     {
-        return $this->hasMany(products::class);
+        return $this->hasMany(Products::class);
     }
 
 
     public static function arrayForSelect()
     {
         $arr = [];
-        $categories = categories::all();
+        $categories = Categories::all();
         foreach($categories as $category){
             $arr[$category->id] = $category->title;
         }

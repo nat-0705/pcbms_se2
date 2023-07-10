@@ -43,10 +43,12 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
         Route::get('logout', [LoginController::class,'logout'])->name('logout');
 
-        Route::get('groups',            [GroupsController::class,'index'])->name('groups');
-        Route::get('groups/create',     [GroupsController::class,'create']);
-        Route::post('groups',           [GroupsController::class,'store']);
-        Route::delete('groups/{id}',    [GroupsController::class,'destroy']);
+        // Route::get('groups',            [GroupsController::class,'index'])->name('groups');
+        // Route::get('groups/create',     [GroupsController::class,'create']);
+        // Route::post('groups',           [GroupsController::class,'store']);
+        // Route::delete('groups/{id}',    [GroupsController::class,'destroy']);
+        Route::resource('groups', GroupsController::class)->except('show');
+
         
 
 
